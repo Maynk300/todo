@@ -30,8 +30,10 @@
                         <span>{{i.task}}</span>
 
                         <div>
-                            <button class="btn btn-sm btn-success">Done</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                             
+                        <a href=" {% url 'mark_as_done' i.pk %}">    <button class="btn btn-sm btn-success">Done</button> </a>
+                           <a href="{% url 'delete_task' i.pk %}"> <button class="btn btn-sm btn-danger">Delete</button></a>
+                        <a href="{% url 'edit_task' i.id %}"><button class="btn btn-sm btn-primary">Edit</button></a>
                         </div>
                     </div>
                     {% empty %}
@@ -43,7 +45,25 @@
         </div>
 
         <!-- Completed Tasks -->
-        <div class="col-md-4">
+
+        <div class="col-md-4 col-lg-4">
+            <h5>Completed Task</h5>
+            {% for i in completed %}
+            <!-- list of all completed task: -->
+            <div class="card m-1">
+                <div class=" d-flex justify-content-between  card-body">
+                    {{ i.task}}
+                   <a href="{% url 'undone' i.pk %}"><button class="btn btn-sm btn-danger">UnDone</button></a>
+
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+
+    
+
+        <!-- <div class="col-md-4">
             <div class="card shadow-sm">
                 <div class="card-header bg-light">
                     <h5 class="mb-0">Completed</h5>
@@ -51,7 +71,7 @@
 
                 <div class="card-body" style="height:350px; overflow-y:auto;">
 
-                    {% for task in completed_tasks %}
+                   {% for i in completed %}
                     <div class="d-flex justify-content-between align-items-center border-bottom py-2">
                         <span class="text-decoration-line-through text-muted">
                             {{ task.title }}
@@ -65,14 +85,14 @@
 
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
 
     <!-- Add Task -->
     <div class="row mt-3">
         <div class="col-md-8">
-            <form action="{% url 'addTask' %}" method="post">
+            <form action="{% url 'addTask' %}" method="post" >
                 {% csrf_token %}
                 <div class="input-group">
                     <input type="text" name="taskk" class="form-control" placeholder="Add a task">
